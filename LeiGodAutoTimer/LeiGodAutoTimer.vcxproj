@@ -24,6 +24,7 @@
     <ProjectGuid>{65c4073e-df8d-42c6-9763-36dbe92e2b52}</ProjectGuid>
     <RootNamespace>LeiGodAutoTimer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>LeiGodAutoTimerV10</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
