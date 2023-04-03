@@ -6,64 +6,11 @@
 #include <string>
 #include <winnt.h>
 
-
-struct LeiGodData
-{
-    unsigned char m_pad0[0x12B8];
-    bool m_bSuspend; //访问的时候是dword，有可能真不是bool
-    unsigned char m_pad1[0xA7F];
-
-    bool Valid()
-    {
-        return *(void**)this != nullptr;
-    }
-
-};
-
-struct AccelerateInfo
-{
-    unsigned char m_pad0[0x3EA];
-    bool m_bInAccelerate;
-
-    bool Valid()
-    {
-        return (void*)this != nullptr;
-    }
-};
-
 namespace Hooks
 {
     inline void* LeiGodBase;
-    inline bool m_bInAccelerate = false;
-    inline LeiGodData* m_pLeiGodData = nullptr;
-    inline AccelerateInfo* m_pAccelerateInfo = nullptr;
-    
-    using fnStartAccelerate = int(__fastcall*)(void*, void*, int);
-    inline fnStartAccelerate oStartAccelerate = nullptr;
-    
-    using fnStopAccelerate = int(__fastcall*)(void*, void*, int, int);
-    inline fnStopAccelerate oStopAccelerate = nullptr;
-
-    using fnSuspendUserTime = int(__cdecl*)();
-    inline fnSuspendUserTime SuspendUserTime = nullptr;
-
-    using fnResumeUserTime = int(__cdecl *)();
-    inline fnResumeUserTime oResumeUserTime = nullptr;
-
-    using fnOnExit = int(__fastcall*)(void*, void*, int, int, int, int);
-    inline fnOnExit oOnExit = nullptr;
-    
-    using fnWndProc = LRESULT(__stdcall*)(HWND, UINT, WPARAM, LPARAM);
-    inline fnWndProc oWndProc = nullptr;
 
 	void Initialize();
-    void WaitForModule();
-
-    int __fastcall hk_StartAccelerate(void* ecx, void* edx, int a2);
-    int __fastcall hk_StopAccelerate(void* ecx, void* edx, int a2, int a3);
-    int __cdecl hk_ResumeUserTime();
-    int __fastcall hk_OnExit(void* ecx, void* edx, int a2, int a3, int a4, int a5);
-    LRESULT __stdcall hk_WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
     static void ThrowError(const char* cReason) // 这就是个垃圾函数
     {
