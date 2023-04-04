@@ -5,14 +5,20 @@
 #include <vector>
 #include <string>
 #include <winnt.h>
+#include <iostream>
+#include <fstream>
 
 namespace Hooks
 {
     inline void* LeiGodBase;
 
+    using fnWSASend = int(__stdcall*)(void*, void*, int, void*, int, void*, void*);
+    inline fnWSASend OWSASend;
+    int __stdcall hkWSASend(void* s, void* lpBuffers, int dwBufferCount, void* lpNumberOfBytesSent, int dwFlags, void* lpOverlapped, void* lpCompletionRoutine);
+
 	void Initialize();
 
-    static void ThrowError(const char* cReason) // 这就是个垃圾函数
+    static void ThrowError(const char* cReason)
     {
         MessageBoxA(0, cReason, "雷神自停插件 - 错误", 0);
     }
